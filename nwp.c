@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(){
 
 	char znak, X[20], Y[20];
 	int i=0,k;
 	printf("Dawaj ciagi \n");
-	scanf("%s %s", X, Y);
+	scanf("%s %s\n", X, Y);
 	k=i;
 //	while(i<20){
 //			scanf("%c", &znak);
