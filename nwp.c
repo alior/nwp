@@ -5,16 +5,14 @@
 int main(){
 
 	char znak, X[20], Y[20];
-	int i=0,k;
+	int i=0;
+	for(i=0; i<20;i++){
+		X[i]=0;
+		Y[i]=0;
+	}
 	printf("Dawaj ciagi \n");
 	scanf("%s", X);
 	scanf("%s", Y);
-	k=i;
-//	while(i<20){
-//			scanf("%c", &znak);
-//			Y[i]=znak;
-//			i++;
-//		}
 	for(i=0;i<5;i++){
 		printf("%c",X[i]);
 	}
