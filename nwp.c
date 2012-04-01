@@ -8,12 +8,14 @@ int main(){
 	printf("Dawaj ciagi \n");
 	while(znak!=' '){
 		scanf("%c", &znak);
+		if (znak==' ')
+			break;
 		X[i]=znak;
 		i++;
 	}
 	k=i;
 	i=0;
-	while(znak!=' '){
+	while(znak!=13){
 			scanf("%c", &znak);
 			Y[i]=znak;
 			i++;
@@ -26,6 +28,6 @@ int main(){
 		}
 
 	//scanf("%d", &i);
-	//return 0;
+	return 0;
 
 }
