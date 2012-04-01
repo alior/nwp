@@ -6,10 +6,7 @@ int main(){
 	char znak, X[20], Y[20];
 	int i=0,k;
 	printf("Dawaj ciagi \n");
-	while(znak!=' '){
-		scanf("%s %s", X, Y);
-		i++;
-	}
+	scanf("%s %s", X, Y);
 	k=i;
 //	while(i<20){
 //			scanf("%c", &znak);
