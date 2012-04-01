@@ -13,10 +13,10 @@ int main(){
 	printf("Dawaj ciagi \n");
 	scanf("%s", X);
 	scanf("%s", Y);
-	for(i=0;i<5;i++){
+	for(i=0;X[i]!=0;i++){
 		printf("%c",X[i]);
 	}
-	for(i=0;i<5;i++){
+	for(i=0;Y[i]!=0;i++){
 			printf("%c",Y[i]);
 		}
 	return 0;
