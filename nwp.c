@@ -7,7 +7,8 @@ int main(){
 	char znak, X[20], Y[20];
 	int i=0,k;
 	printf("Dawaj ciagi \n");
-	scanf("%s %s\n", X, Y);
+	scanf("%s", X);
+	scanf("%s", Y);
 	k=i;
 //	while(i<20){
 //			scanf("%c", &znak);
