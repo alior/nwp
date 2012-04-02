@@ -4,6 +4,7 @@
 
 void LCSLENGTH(char X[], char Y[]){
 	int m=strlen(X), n=strlen(Y), i, j, c[m][n], b[m][n];
+	printf("m=%d n=%d", m, n);
 	for (i=1;i<m;i++)
 		c[i][0]=0;
 	for (j=0;j<n;j++)
@@ -26,6 +27,12 @@ void LCSLENGTH(char X[], char Y[]){
 		}
 	}
 	printf("dlugosc nwp: %d ", c[m][n]);
+	for(j=1;j<m;j++){
+		for(i=1;i<n;i++){
+			printf("%d",b[j][i]);
+		}
+		printf("\n");
+	}
 }
 
 int main(){
