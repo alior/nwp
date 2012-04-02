@@ -24,7 +24,7 @@ void PRINTLCS(int b[][10], char X[],int i,int j){
 }
 
 void LCSLENGTH(char X[], char Y[]){
-	int m=strlen(X), n=strlen(Y), i, j, c[m][n], b[m][n];
+	int m=strlen(X), n=strlen(Y), i, j, c[m+1][n+1], b[m+1][n+1];
 	printf("m=%d n=%d \n", m, n);
 	for (i=1;i<=m;i++)
 		c[i][0]=0;
