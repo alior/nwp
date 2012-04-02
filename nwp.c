@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-void PRINTLCS(int b[][6], char X[],int i,int j){
-	printf("b[1][1]= %d\n" ,b[1][1]);
+void PRINTLCS(int b[][7], char X[],int i,int j){
 	int k,l;
-	printf("i=%d j=%d\n",i ,j);
 	for(k=1;k<=i;k++){
 			for(l=1;l<=j;l++){
 				printf("%d",b[k][l]);
