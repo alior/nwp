@@ -3,6 +3,14 @@
 #include <string.h>
 
 void PRINTLCS(int b[][10], char X[],int i,int j){
+	int k,l;
+	printf("i=%d j=%d\n",i ,j);
+	for(k=1;k<=i;k++){
+			for(l=1;l<=j;l++){
+				printf("%d",b[k][l]);
+			}
+			printf("\n");
+		}
 	if(i==0 || j==0)
 		return;
 	if(b[i][j]==0){
