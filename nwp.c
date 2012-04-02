@@ -3,6 +3,7 @@
 #include <string.h>
 
 void PRINTLCS(int b[][10], char X[],int i,int j){
+	printf("b[1][1]= %d\n" ,b[1][1]);
 	int k,l;
 	printf("i=%d j=%d\n",i ,j);
 	for(k=1;k<=i;k++){
