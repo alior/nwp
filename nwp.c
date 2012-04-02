@@ -39,6 +39,7 @@ int main(){
 	printf("Dawaj ciagi \n");
 	scanf("%s", X);
 	scanf("%s", Y);
+	LCSLENGTH(X,Y);
 //	for(i=0;X[i]!=0;i++){
 //		printf("%c",X[i]);
 //	}
