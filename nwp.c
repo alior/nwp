@@ -18,12 +18,12 @@ void PRINTLCS(int b[][10], char X[],int i,int j){
 void LCSLENGTH(char X[], char Y[]){
 	int m=strlen(X), n=strlen(Y), i, j, c[m][n], b[m][n];
 	printf("m=%d n=%d \n", m, n);
-	for (i=1;i<m;i++)
+	for (i=1;i<=m;i++)
 		c[i][0]=0;
-	for (j=0;j<n;j++)
+	for (j=0;j<=n;j++)
 		c[0][j]=0;
-	for (i=1;i<m;i++){
-		for(j=1;j<n;j++){
+	for (i=1;i<=m;i++){
+		for(j=1;j<=n;j++){
 			if(X[i]==Y[j]){
 				c[i][j]=c[i-1][j-1]+1;
 				b[i][j]=0;
