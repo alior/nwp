@@ -33,6 +33,21 @@ void LCSLENGTH(char X[], char Y[]){
 		}
 		printf("\n");
 	}
+	printf("\n\n");
+	PRINTLCS(b,X,m,n);
+}
+
+void PRINTLCS(int b[],char X[],int i,int j){
+	if(i==0 || j==0)
+		return;
+	if(b[i][j]==0){
+		PRINTLCS(b,X,i-1,j-1);
+		printf("%c",X[i]);
+	}
+	else
+		if(b[i][j]==1)
+			PRINTLCS(b,X,i-1,j);
+		else PRINTLCS(b,X,i,j-1);
 }
 
 int main(){
