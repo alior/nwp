@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void PRINTLCS(int b[][10], char X[],int i,int j){
+void PRINTLCS(int b[][6], char X[],int i,int j){
 	printf("b[1][1]= %d\n" ,b[1][1]);
 	int k,l;
 	printf("i=%d j=%d\n",i ,j);
