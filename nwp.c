@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void PRINTLCS(int** b, char X[],int i,int j){
+void PRINTLCS(int b[][10], char X[],int i,int j){
 	if(i==0 || j==0)
 		return;
 	if(b[i][j]==0){
@@ -49,8 +49,6 @@ void LCSLENGTH(char X[], char Y[]){
 	printf("\n\n");
 	PRINTLCS(b,X,m,n);
 }
-
-
 
 int main(){
 
