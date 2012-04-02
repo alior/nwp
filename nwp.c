@@ -39,7 +39,7 @@ int main(){
 
 	char X[10], Y[10];
 	int i=0;
-	for(i=0; i<20;i++){
+	for(i=0; i<10;i++){
 		X[i]=-1;
 		Y[i]=-1;
 	}
