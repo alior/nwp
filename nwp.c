@@ -39,13 +39,13 @@ void LCSLENGTH(char X[], char Y[]) {
 		for (j = 0; j <= n; j++) {
 			if (X[i] == Y[j]) {
 				c[i + 1][j + 1] = c[i][j] + 1;
-				b[i + 1][j + 1] = 0;
+				b[i + 1][j + 1] = 1;
 			} else if (c[i][j + 1] >= c[i + 1][j]) {
 				c[i + 1][j + 1] = c[i][j + 1];
-				b[i + 1][j + 1] = 1;
+				b[i + 1][j + 1] = 2;
 			} else {
 				c[i + 1][j + 1] = c[i + 1][j];
-				b[i + 1][j + 1] = 2;
+				b[i + 1][j + 1] = 3;
 			}
 		}
 	}
@@ -73,13 +73,13 @@ void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[])
 			printf("|       |");
 		}
 		for (j = 0; j <= lenj; j++) {
-			if (b[i][j] == 0) {
+			if (b[i][j] == 1) {
 				strzalka = 's';
 			}
-			else if (b[i][j] == 1) {
+			else if (b[i][j] == 2) {
 				strzalka = 'g';
 			}
-			else if (b[i][j] == 2) {
+			else if (b[i][j] == 3) {
 				strzalka = 'l';
 			}
 			printf(" %3d %c |", c[i][j],strzalka);
