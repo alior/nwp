@@ -3,7 +3,7 @@
 #include <string.h>
 
 void PRINTLCS(int b[][100], char X[], int i, int j) {
-	printf("i=%d j=%d\n", i, j);
+	//printf("i=%d j=%d\n", i, j);
 	if (i == 0 || j == 0)
 		return;
 	if (b[i][j] == 0) {
@@ -50,11 +50,11 @@ void LCSLENGTH(char X[], char Y[]) {
 		}
 	}
 	printf("dlugosc nwp: %d \n", c[m][n]);
-	printf("\n\n");
+	printf("\n");
 	showstr(c, b, m, n, X, Y);
-	printf("Najdluzszy wspolny podciag to:");
+	printf("Najdluzszy wspolny podciag to:" );
 	PRINTLCS(b, X, m, n);
-	printf("/n");
+	printf("\n");
 }
 
 void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[]) {
