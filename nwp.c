@@ -6,10 +6,10 @@ void PRINTLCS(int b[][100], char X[], int i, int j) {
 	//printf("i=%d j=%d\n", i, j);
 	if (i == 0 || j == 0)
 		return;
-	if (b[i][j] == 0) {
+	if (b[i][j] == 1) {
 		PRINTLCS(b, X, i - 1, j - 1);
 		printf("%c", X[i-1]);
-	} else if (b[i][j] == 1)
+	} else if (b[i][j] == 2)
 		PRINTLCS(b, X, i - 1, j);
 	else
 		PRINTLCS(b, X, i, j - 1);
