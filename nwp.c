@@ -82,6 +82,7 @@ void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[])
 			else if (b[i][j] == 3) {
 				strzalka = 'l';
 			}
+			else strzalka = ' ';
 			printf(" %3d %c |", c[i][j],strzalka);
 		}
 		printf("\n");
