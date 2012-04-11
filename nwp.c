@@ -17,7 +17,6 @@ void PRINTLCS(int b[][100], char X[], int i, int j) {
 
 void LCSLENGTH(char X[], char Y[]) {
 	int m = strlen(X), n = strlen(Y), i, j, c[100][100], b[100][100];
-	printf("m=%d n=%d \n", m, n);
 	for (i = 1; i <= m; i++)
 		c[i][0] = 0;
 	for (j = 0; j <= n; j++)
@@ -53,7 +52,9 @@ void LCSLENGTH(char X[], char Y[]) {
 	printf("dlugosc nwp: %d \n", c[m][n]);
 	printf("\n\n");
 	showstr(c, b, m, n, X, Y);
+	printf("Najdluzszy wspolny podciag to:");
 	PRINTLCS(b, X, m, n);
+	printf("/n");
 }
 
 void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[]) {
