@@ -2,81 +2,105 @@
 #include <stdlib.h>
 #include <string.h>
 
-void PRINTLCS(int b[][7], char X[],int i,int j){
-	printf("i=%d j=%d\n",i ,j);
-	int k,l;
-	for(k=1;k<=i;k++){
-			for(l=1;l<=j;l++){
-				printf("%d",b[k][l]);
-			}
-			printf("\n");
-		}
-	if(i==0 || j==0)
+void PRINTLCS(int b[][100], char X[], int i, int j) {
+	printf("i=%d j=%d\n", i, j);
+	if (i == 0 || j == 0)
 		return;
-	if(b[i][j]==0){
-		PRINTLCS(b,X,i-1,j-1);
-		printf("%c",X[i]);
-	}
+	if (b[i][j] == 0) {
+		PRINTLCS(b, X, i - 1, j - 1);
+		printf("%c", X[i-1]);
+	} else if (b[i][j] == 1)
+		PRINTLCS(b, X, i - 1, j);
 	else
-		if(b[i][j]==1)
-			PRINTLCS(b,X,i-1,j);
-		else PRINTLCS(b,X,i,j-1);
+		PRINTLCS(b, X, i, j - 1);
 }
 
-void LCSLENGTH(char X[], char Y[]){
-	int m=strlen(X), n=strlen(Y), i, j, c[m+1][n+1], b[m+1][n+1];
+void LCSLENGTH(char X[], char Y[]) {
+	int m = strlen(X), n = strlen(Y), i, j, c[100][100], b[100][100];
 	printf("m=%d n=%d \n", m, n);
-	for (i=1;i<=m;i++)
-		c[i][0]=0;
-	for (j=0;j<=n;j++)
-		c[0][j]=0;
-	for (i=1;i<=m;i++){
-		for(j=1;j<=n;j++){
-			if(X[i]==Y[j]){
-				c[i][j]=c[i-1][j-1]+1;
-				b[i][j]=0;
+	for (i = 1; i <= m; i++)
+		c[i][0] = 0;
+	for (j = 0; j <= n; j++)
+		c[0][j] = 0;
+//	for (i = 1; i <= m; i++) {
+//		for (j = 1; j <= n; j++) {
+//			if (X[i] == Y[j]) {
+//				c[i][j] = c[i - 1][j - 1] + 1;
+//				b[i][j] = 0;
+//			} else if (c[i - 1][j] >= c[i][j - 1]) {
+//				c[i][j] = c[i - 1][j];
+//				b[i][j] = 1;
+//			} else {
+//				c[i][j] = c[i][j - 1];
+//				b[i][j] = 2;
+//			}
+//		}
+//	}
+	for (i = 0; i <= m; i++) {
+		for (j = 0; j <= n; j++) {
+			if (X[i] == Y[j]) {
+				c[i + 1][j + 1] = c[i][j] + 1;
+				b[i + 1][j + 1] = 0;
+			} else if (c[i][j + 1] >= c[i + 1][j]) {
+				c[i + 1][j + 1] = c[i][j + 1];
+				b[i + 1][j + 1] = 1;
+			} else {
+				c[i + 1][j + 1] = c[i + 1][j];
+				b[i + 1][j + 1] = 2;
 			}
-			else
-				if(c[i-1][j]>=c[i][j-1]){
-					c[i][j]=c[i-1][j];
-					b[i][j]=1;
-				}
-				else{
-					c[i][j]=c[i][j-1];
-					b[i][j]=2;
-				}
 		}
 	}
 	printf("dlugosc nwp: %d \n", c[m][n]);
-	for(j=1;j<=m;j++){
-		for(i=1;i<=n;i++){
-			printf("%d",b[j][i]);
+	printf("\n\n");
+	showstr(c, b, m, n, X, Y);
+	PRINTLCS(b, X, m, n);
+}
+
+void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[]) {
+	int i, j;
+	char strzalka;
+
+	printf("|       |       |");
+	for (j = 0; j < lenj; j++) {
+		printf("   %c   |", Y[j]);
+	}
+	printf("\n");
+	for (i = 0; i <= leni; i++) {
+		if (i != 0) {
+			printf("|   %c   |", X[i - 1]);
+		} else {
+			printf("|       |");
+		}
+		for (j = 0; j <= lenj; j++) {
+			if (b[i][j] == 0) {
+				strzalka = 's';
+			}
+			else if (b[i][j] == 1) {
+				strzalka = 'g';
+			}
+			else if (b[i][j] == 2) {
+				strzalka = 'l';
+			}
+			printf(" %3d %c |", c[i][j],strzalka);
 		}
 		printf("\n");
 	}
-	printf("\n\n");
-	PRINTLCS(b,X,m,n);
 }
 
-int main(){
+int main() {
 
 	char X[10], Y[10];
-	int i=0;
-	for(i=0; i<10;i++){
-		X[i]=-1;
-		Y[i]=-1;
+	int i = 0;
+	for (i = 0; i < 10; i++) {
+		X[i] = -1;
+		Y[i] = -1;
 	}
 	printf("Dawaj ciagi \n");
 	scanf("%s", X);
 	scanf("%s", Y);
-	LCSLENGTH(X,Y);
-//	for(i=0;X[i]!=0;i++){
-//		printf("%c",X[i]);
-//	}
-//	printf("\n");
-//	for(i=0;Y[i]!=0;i++){
-//			printf("%c",Y[i]);
-//		}
+	LCSLENGTH(X, Y);
+	getchar();
+	getchar();
 	return 0;
 
 }
