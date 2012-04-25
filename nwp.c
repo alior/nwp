@@ -3,7 +3,6 @@
 #include <string.h>
 
 void PRINTLCS(int b[][100], char X[], int i, int j) {
-	//printf("i=%d j=%d\n", i, j);
 	if (i == 0 || j == 0)
 		return;
 	if (b[i][j] == 1) {
@@ -21,20 +20,6 @@ void LCSLENGTH(char X[], char Y[]) {
 		c[i][0] = 0;
 	for (j = 0; j <= n; j++)
 		c[0][j] = 0;
-//	for (i = 1; i <= m; i++) {
-//		for (j = 1; j <= n; j++) {
-//			if (X[i] == Y[j]) {
-//				c[i][j] = c[i - 1][j - 1] + 1;
-//				b[i][j] = 0;
-//			} else if (c[i - 1][j] >= c[i][j - 1]) {
-//				c[i][j] = c[i - 1][j];
-//				b[i][j] = 1;
-//			} else {
-//				c[i][j] = c[i][j - 1];
-//				b[i][j] = 2;
-//			}
-//		}
-//	}
 	for (i = 0; i <= m; i++) {
 		for (j = 0; j <= n; j++) {
 			if (X[i] == Y[j]) {
@@ -51,12 +36,12 @@ void LCSLENGTH(char X[], char Y[]) {
 	}
 	printf("dlugosc nwp: %d \n", c[m][n]);
 	printf("\n");
-	showstr(c, b, m, n, X, Y);
+	//showstr(c, b, m, n, X, Y);
 	printf("Najdluzszy wspolny podciag to:" );
 	PRINTLCS(b, X, m, n);
 	printf("\n");
 }
-
+/*
 void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[]) {
 	int i, j;
 	char strzalka;
@@ -88,12 +73,12 @@ void showstr(int c[][100], int b[][100], int leni, int lenj, char X[], char Y[])
 		printf("\n");
 	}
 }
-
+*/
 int main() {
 
-	char X[10], Y[10];
+	char X[100], Y[100];
 	int i = 0;
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 100; i++) {
 		X[i] = -1;
 		Y[i] = -1;
 	}
