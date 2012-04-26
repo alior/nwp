@@ -9,8 +9,6 @@ typedef struct W {
 		int kolor;
 	} wezel;
 
-wezel NIL;
-
 wezel* MakeSet(int k){
 	wezel *x;
 	x = malloc(sizeof(wezel));
@@ -31,7 +29,7 @@ void Union(wezel *x, wezel *y){
 	if(y->length > x->length){
 		pom=x;
 		x=y;
-		y=x;
+		y=pom;
 	}
 	x->length = x->length + y->length;
 	x->last->next=y;
@@ -44,9 +42,9 @@ void Union(wezel *x, wezel *y){
 }
 
 int main(){
-	wezel *W[10];
+	wezel *W[11], *pom;
 	int i;
-	for(i=0;i<10;i++){
+	for(i=0;i<11;i++){
 		W[i]=MakeSet(i);
 	}
 	Union(FindSet(W[0]),FindSet(W[2]));
@@ -56,13 +54,13 @@ int main(){
 	Union(FindSet(W[7]),FindSet(W[8]));
 	Union(FindSet(W[9]),FindSet(W[10]));
 	Union(FindSet(W[1]),FindSet(W[4]));
-	Union(FindSet(W[2]),FindSet(W[5]));
+	Union(FindSet(W[9]),FindSet(W[3]));
 	Union(FindSet(W[8]),FindSet(W[1]));
-	for(i=0;i<10;i++){
-			printf("%d \n", W[i]);
-		}
-	getchar();
-	getchar();
+	pom=FindSet(W[2]);
+	for(i=0;pom!=NULL;i++){
+			printf("%d->",pom->key);
+			pom=pom->next;
+	}
 	return 0;
 }
 
