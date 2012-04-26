@@ -36,7 +36,6 @@ void Union(wezel *x, wezel *y){
 	x->last=y->last;
 	while(y!=NIL){
 		y->head=x;
-		printf("reprezentantem jest %d \n", y->head->key);
 		y=y->next;
 	}
 }
@@ -61,6 +60,8 @@ int main(){
 			printf("%d->",pom->key);
 			pom=pom->next;
 	}
+	printf("\nreprezentantem zbioru jest: %d \n", FindSet(W[7])->key);
+	printf("ostatnim elementem zbioru jest: %d \n", FindSet(W[5])->last->key);
 	return 0;
 }
 
