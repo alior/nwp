@@ -4,13 +4,12 @@
 #define NIL NULL
 
 typedef struct kr {
-	int w1, w2, waga;
+	int w1, w2, waga, roz;
 } krawedz ;
 
 typedef struct W {
 	int key, length;
 	struct W *head, *next, *last;
-	int kolor;
 } wezel;
 
 wezel* MakeSet(int k){
@@ -47,6 +46,24 @@ void Union(wezel *x, wezel *y){
 int compare (const void * a, const void * b){
   return ( ((krawedz*)a)->waga - ((krawedz*)b)->waga );
 }
+
+void kruskal(krawedz *x, int lk, int lw){
+	int i;
+	wezel *W[lw+1];
+	for(i=1;i<=lw;i++){
+		W[i]=MakeSet(i);
+	}
+	for(i=0;i<lk;i++){
+		if(FindSet(W[x[i].w1]) != FindSet(W[x[i].w2]) ){
+			x[i].roz=1;
+			Union((W[x[i].w1]), (W[x[i].w2]));
+		}
+	}
+	for(i=0;i<lk;i++){
+		printf("krawedz o wadze %d jest %d \n", x[i].waga, x[i].roz);
+	}
+}
+
 int main(){
 	int i, lw, lk, w1, w2, waga;
 	krawedz *x;
@@ -62,7 +79,7 @@ int main(){
 	for(i=0;i<lk;i++){
 		printf("w1=%d, w2=%d, waga=%d \n", x[i].w1, x[i].w2, x[i].waga);
 	}
-	getchar();
-	getchar();
+	kruskal(x,lk,lw);
+
 	return 0;
 }
