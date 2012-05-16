@@ -47,14 +47,16 @@ int compare (const void * a, const void * b){
   return ( ((krawedz*)a)->waga - ((krawedz*)b)->waga );
 }
 
-void kruskal(krawedz *x, int lk, int lw){
+krawedz *kruskal(krawedz *x, int lk, int lw){
 	int i;
-	wezel *W[lw+1];
+	wezel *W[lw+1], *pom;
 	for(i=1;i<=lw;i++){
 		W[i]=MakeSet(i);
 	}
+	printf("lk= %d \n", lk);
 	for(i=0;i<lk;i++){
 		if(FindSet(W[x[i].w1]) != FindSet(W[x[i].w2]) ){
+			printf("warunek wszedl przy krawedzi %d-%d \n", x[i].w1, x[i].w2);
 			x[i].roz=1;
 			Union((W[x[i].w1]), (W[x[i].w2]));
 		}
@@ -62,8 +64,20 @@ void kruskal(krawedz *x, int lk, int lw){
 	for(i=0;i<lk;i++){
 		printf("krawedz o wadze %d jest %d \n", x[i].waga, x[i].roz);
 	}
+	return x;
 }
-
+void wyswietl(krawedz *x, int lk, int lw){
+	int i;
+	printf("graph G {\n");
+	for(i=1;i<lw+1;i++){
+		printf("%d [style=filled, fillcolor=gray]\n", i);
+	}
+	for(i=0;i<lk;i++){
+		if(x[i].roz==1)
+			printf("%d -- %d [label=%d]\n", x[i].w1, x[i].w2, x[i].waga);
+		}
+	printf("}\n");
+}
 int main(){
 	int i, lw, lk, w1, w2, waga;
 	krawedz *x;
@@ -74,12 +88,13 @@ int main(){
 		x[i].w1=w1;
 		x[i].w2=w2;
 		x[i].waga=waga;
+		x[i].roz=0;
 	}
 	qsort(x, lk , sizeof(krawedz), compare);
-	for(i=0;i<lk;i++){
+	/*for(i=0;i<lk;i++){
 		printf("w1=%d, w2=%d, waga=%d \n", x[i].w1, x[i].w2, x[i].waga);
-	}
-	kruskal(x,lk,lw);
-
+	}*/
+	x=kruskal(x,lk,lw);
+	wyswietl(x,lk,lw);
 	return 0;
 }
