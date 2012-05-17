@@ -28,7 +28,6 @@ wezel* FindSet(wezel *x){
 
 void Union(wezel *x, wezel *y){
 	wezel *pom;
-	//printf("   x length = %d  y length=%d \n", x->head->length, y->head->length);
 	if(y->head->length > x->head->length){
 		pom=x;
 		x=y;
