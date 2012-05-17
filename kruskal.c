@@ -29,40 +29,70 @@ wezel* FindSet(wezel *x){
 
 void Union(wezel *x, wezel *y){
 	wezel *pom;
-	if(y->length > x->length){
+	if(y->head->length > x->head->length){
 		pom=x;
 		x=y;
 		y=pom;
+
 	}
-	x->length = x->length + y->length;
-	x->last->next=y;
-	x->last=y->last;
+	x->length = x->head->length + y->head->length;
+	y->head->length=x->length;
+	x->head->last->next=y;
+	x->head->last=y->head->last;
 	while(y!=NIL){
-		y->head=x;
+		y->head=x->head;
 		y=y->next;
 	}
 }
 
 int compare (const void * a, const void * b){
-  return ( ((krawedz*)a)->waga - ((krawedz*)b)->waga );
+	return ( ((krawedz*)a)->waga - ((krawedz*)b)->waga );
 }
 
 krawedz *kruskal(krawedz *x, int lk, int lw){
-	int i;
+	int i,j;
 	wezel *W[lw+1], *pom;
 	for(i=1;i<=lw;i++){
 		W[i]=MakeSet(i);
 	}
-	printf("lk= %d \n", lk);
 	for(i=0;i<lk;i++){
 		if(FindSet(W[x[i].w1]) != FindSet(W[x[i].w2]) ){
-			printf("warunek wszedl przy krawedzi %d-%d \n", x[i].w1, x[i].w2);
+			/*printf("%d.)  KRAWEDZ %d-%d \n", i+1, x[i].w1, x[i].w2);
+			for(j=1;j<=lw;j++){
+				printf("%d ", FindSet(W[j])->head->key);
+			}
+			printf(" w1:");
+			pom=FindSet(W[x[i].w1]);
+			for(j=1;pom!=NIL;j++){
+				printf("%d->",pom->key);
+				pom=pom->next;
+			}
+			printf(" w2:");
+			pom=FindSet(W[x[i].w2]);
+			for(j=1;pom!=NIL;j++){
+				printf("%d->",pom->key);
+				pom=pom->next;
+			}
+			printf("\n");*/
 			x[i].roz=1;
 			Union((W[x[i].w1]), (W[x[i].w2]));
+			/*for(j=1;j<=lw;j++){
+				printf("%d ", FindSet(W[j])->head->key);
+			}
+			printf(" w1:");
+			pom=FindSet(W[x[i].w1]);
+			for(j=1;pom!=NIL;j++){
+				printf("%d->",pom->key);
+				pom=pom->next;
+			}
+			printf(" w2:");
+			pom=FindSet(W[x[i].w2]);
+			for(j=1;pom!=NIL;j++){
+				printf("%d->",pom->key);
+				pom=pom->next;
+			}
+			printf("\n");*/
 		}
-	}
-	for(i=0;i<lk;i++){
-		printf("krawedz o wadze %d jest %d \n", x[i].waga, x[i].roz);
 	}
 	return x;
 }
@@ -75,7 +105,7 @@ void wyswietl(krawedz *x, int lk, int lw){
 	for(i=0;i<lk;i++){
 		if(x[i].roz==1)
 			printf("%d -- %d [label=%d]\n", x[i].w1, x[i].w2, x[i].waga);
-		}
+	}
 	printf("}\n");
 }
 int main(){
@@ -91,9 +121,6 @@ int main(){
 		x[i].roz=0;
 	}
 	qsort(x, lk , sizeof(krawedz), compare);
-	/*for(i=0;i<lk;i++){
-		printf("w1=%d, w2=%d, waga=%d \n", x[i].w1, x[i].w2, x[i].waga);
-	}*/
 	x=kruskal(x,lk,lw);
 	wyswietl(x,lk,lw);
 	return 0;
