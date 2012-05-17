@@ -28,20 +28,17 @@ wezel* FindSet(wezel *x){
 
 void Union(wezel *x, wezel *y){
 	wezel *pom;
-	/*printf("   x length = %d  y length=%d \n", x->head->length, y->head->length);*/
-	if(y->head->length > x->head->length){
+	if(y->length > x->length){
 		pom=x;
 		x=y;
 		y=pom;
 
 	}
-	x->head->length = x->head->length + y->head->length;
-	y->head->length=x->length;
-	x->head->last->next=y->head;
-	x->head->last=y->head->last;
-	y=y->head;
+	x->length = x->length + y->length;
+	x->last->next=y;
+	x->last=y->last;
 	while(y!=NIL){
-		y->head=x->head;
+		y->head=x;
 		y=y->next;
 	}
 }
@@ -77,7 +74,7 @@ krawedz *kruskal(krawedz *x, int lk, int lw){
 			}
 			printf("\n");*/
 			x[i].roz=1;
-			Union((W[x[i].w1]), (W[x[i].w2]));
+			Union(FindSet((W[x[i].w1])), FindSet((W[x[i].w2])));
 			/*printf("    ");
 			for(j=1;j<=lw;j++){
 				printf("%d ", FindSet(W[j])->head->key);
