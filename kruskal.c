@@ -50,8 +50,8 @@ int compare (const void * a, const void * b){
 }
 
 krawedz *kruskal(krawedz *x, int lk, int lw){
-	int i,j;
-	wezel *W[lw+1], *pom;
+  int i=lw+1;
+	wezel *W[i];
 	for(i=1;i<=lw;i++){
 		W[i]=MakeSet(i);
 	}
@@ -100,11 +100,11 @@ void wyswietl(krawedz *x, int lk, int lw){
 	int i;
 	printf("graph G {\n");
 	for(i=1;i<lw+1;i++){
-		printf("%d [style=filled, fillcolor=gray]\n", i);
+		printf("%c \n", i+96);
 	}
 	for(i=0;i<lk;i++){
 		if(x[i].roz==1)
-			printf("%d -- %d [label=%d]\n", x[i].w1, x[i].w2, x[i].waga);
+			printf("%c -- %c [label=%d]\n", x[i].w1+96, x[i].w2+96, x[i].waga);
 	}
 	printf("}\n");
 }
