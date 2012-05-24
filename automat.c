@@ -40,7 +40,7 @@ int cmp(int symbol, int q, int delta[][100]){
 	return 0;
 }
 
-void finite(char T[], char P[],int delta[][100], int m){
+void matcher(char T[], char P[],int delta[][100], int m){
 	int n=strlen(T),i,q=0;
 	for(i=0;i<n;i++){
 		q=cmp(T[i],q,delta);
@@ -109,7 +109,7 @@ void buduj(char P[], int delta[][100]){
 
 int main(){
 	char T[100], P[127];
-	int delta[strlen(alfabet)+1][100],i,j;
+	int delta[27][100],i,j;
 	for(i=0;i<100;i++){
 		for(j=0;j<=strlen(alfabet);j++)
 			delta[j][i]=0;
@@ -120,7 +120,7 @@ int main(){
 	scanf("%s", T);
 	scanf("%s", P+sizeof (char));
 	buduj(P, delta);
-	finite(T,P,delta,strlen(P+sizeof (char)));
+	matcher(T,P,delta,strlen(P+sizeof (char)));
 
 	return 0;
 }
