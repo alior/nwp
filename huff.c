@@ -53,7 +53,7 @@ void huffman(wezel *TAB[], int pom){
 int main(int argc, char **argv){
 	int A[256],i,dlugosc,pom=0,j=0;
 	char x;
-	wezel *kurwa;
+	wezel *wypelniacz;
 	FILE *fp;
 	for(i=0;i<256;i++){
 		A[i]=0;
@@ -76,13 +76,13 @@ int main(int argc, char **argv){
 			pom++;
 	}
 	wezel *TAB[pom*2-1];
-	kurwa=malloc(sizeof(wezel));
-	kurwa->symbol=0;
-	kurwa->key=0;
-	kurwa->left=NULL;
-	kurwa->right=NULL;
+	wypelniacz=malloc(sizeof(wezel));
+	wypelniacz->symbol=0;
+	wypelniacz->key=0;
+	wypelniacz->left=NULL;
+	wypelniacz->right=NULL;
 	for(i=0;i<pom*2;i++){
-		TAB[i]=kurwa;
+		TAB[i]=wypelniacz;
 	}
 	for(i=0;i<256;i++){
 		if(A[i]!=0){
