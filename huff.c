@@ -1,13 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 typedef struct W {
-	int key,symbol;
+	int key,symbol, bracpoduwage;
 	struct W *left, *right;
-	//int left, right;
 } wezel;
+
+void wyswietl(wezel* root) {
+	if (root!=NULL) {
+		printf("%d ",root->key);
+		/*if(root->kolor==RED)   // jaki kolor
+			printf("[style=filled, fillcolor=red]\n");
+		else
+			printf("[style=filled, fillcolor=gray]\n");*/
+		if (root->left!=NULL || root->right!=NULL) {
+			if (root->left!=NULL ) {
+				printf("%d->%d;",root->key, root->left->key);
+			}
+			if (root->right!=NULL ) {
+				printf("%d->%d;",root->key,root->right->key);
+			}
+			printf("\n");
+			if (root->left!=NULL ) {
+				wyswietl(root->left);
+			}
+			if (root->right!=NULL ) {
+				wyswietl(root->right);
+			}
+		}
+	}
+}
 
 void show(wezel *z, int pom){
 	int i;
@@ -18,36 +41,37 @@ void show(wezel *z, int pom){
 
 }
 wezel *findmin(wezel *TAB[], int pom){
-	int i,x=2147483647;
-	wezel *szukany;
+	int i,x=2147483647,y;
 	for(i=0;i<pom*2-1;i++){
-		//printf("\nSUPER 2\n;");
-		if(TAB[i]->key < x && TAB[i]->key > 0)
-			x=i;
+		if(TAB[i]->key<x &&  TAB[i]->bracpoduwage == 1){
+			x=TAB[i]->key;
+			y=i;
+		}
 	}
-	szukany=TAB[x];
-	return szukany;
+	TAB[y]->bracpoduwage=0;
+	return TAB[y];
 }
 
 void huffman(wezel *TAB[], int pom){
 	int i;
 	wezel *z, *x, *y;
-	for(i=1;i<pom-1;i++){
-		//printf("\nSUPER 1\n;");
+	for(i=0;i<pom-1;i++){
 		z=malloc(sizeof(wezel));
 		x=findmin(TAB,pom);
-		//printf("\nSUPER 3\n;");
 		z->left=x;
 		y=findmin(TAB,pom);
 		z->right=y;
 		z->key=x->key+y->key;
+		z->bracpoduwage=1;
 		z->symbol=-2;
 		TAB[i+pom]=z;
 	}
-	for(i=0;i<pom*2-1;i++){
+	/*for(i=0;i<pom*2-1;i++){
 			printf("sym:%c, key:%d || ",TAB[i]->symbol, TAB[i]->key);
-		}
-	//show(z,pom);
+		}*/
+	printf("digraph G {\n");
+	wyswietl(z);
+	printf("\n}\n");
 }
 
 int main(int argc, char **argv){
@@ -65,7 +89,6 @@ int main(int argc, char **argv){
 	}
 	fseek (fp, 0, SEEK_END);
 	fgetpos (fp, &dlugosc);
-	printf ("Rozmiar pliku: %d\n", dlugosc);
 	fseek(fp,0,0);
 	for(i=0;i<dlugosc;i++){
 		fscanf(fp, "%c", &x);
@@ -81,6 +104,7 @@ int main(int argc, char **argv){
 	wypelniacz->key=0;
 	wypelniacz->left=NULL;
 	wypelniacz->right=NULL;
+	wypelniacz->bracpoduwage=0;
 	for(i=0;i<pom*2;i++){
 		TAB[i]=wypelniacz;
 	}
@@ -91,6 +115,7 @@ int main(int argc, char **argv){
 			z->symbol=i;
 			z->left=NULL;
 			z->right=NULL;
+			z->bracpoduwage=1;
 			TAB[j]=z;
 			j++;
 		}
