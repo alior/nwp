@@ -9,18 +9,26 @@ typedef struct W {
 
 void wyswietl(wezel* root) {
 	if (root!=NULL) {
-		printf("%d ",root->key);
-		/*if(root->kolor==RED)   // jaki kolor
-			printf("[style=filled, fillcolor=red]\n");
+		//printf("%d ",root->key);
+		if(root->symbol>0)   // jaki kolor
+			printf("%c [label=\"%c:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
 		else
-			printf("[style=filled, fillcolor=gray]\n");*/
+			printf("%d [style=filled]\n", root->key);
 		if (root->left!=NULL || root->right!=NULL) {
-			if (root->left!=NULL ) {
-				printf("%d->%d;",root->key, root->left->key);
+			if (root->left!=NULL && root->left->symbol>0) {
+				printf("%d->%c [label=0];",root->key, root->left->symbol);
 			}
-			if (root->right!=NULL ) {
-				printf("%d->%d;",root->key,root->right->key);
+			if (root->left!=NULL && root->left->symbol<0) {
+				printf("%d->%d [label=0];",root->key, root->left->key);
 			}
+
+			if (root->right!=NULL && root->right->symbol>0) {
+				printf("%d->%c [label=1];",root->key, root->right->symbol);
+			}
+			if (root->right!=NULL && root->right->symbol<0) {
+				printf("%d->%d [label=1];",root->key,root->right->key);
+			}
+
 			printf("\n");
 			if (root->left!=NULL ) {
 				wyswietl(root->left);
@@ -66,16 +74,14 @@ void huffman(wezel *TAB[], int pom){
 		z->symbol=-2;
 		TAB[i+pom]=z;
 	}
-	/*for(i=0;i<pom*2-1;i++){
-			printf("sym:%c, key:%d || ",TAB[i]->symbol, TAB[i]->key);
-		}*/
+
 	printf("digraph G {\n");
 	wyswietl(z);
-	printf("\n}\n");
+	printf("}\n");
 }
 
 int main(int argc, char **argv){
-	int A[256],i,dlugosc,pom=0,j=0;
+	int A[256],i,pom=0,j=0,dlugosc;
 	char x;
 	wezel *wypelniacz;
 	FILE *fp;
@@ -92,7 +98,7 @@ int main(int argc, char **argv){
 	fseek(fp,0,0);
 	for(i=0;i<dlugosc;i++){
 		fscanf(fp, "%c", &x);
-		A[x]++;
+		A[(int)x]++;
 	}
 	for(i=0;i<256;i++){
 		if(A[i]!=0)
@@ -120,9 +126,6 @@ int main(int argc, char **argv){
 			j++;
 		}
 	}
-	/*for(i=0;i<pom*2-1;i++){
-		printf("sym:%c, key:%d || ",TAB[i]->symbol, TAB[i]->key);
-	}*/
 	huffman(TAB,pom);
 	fclose (fp);
 	return 0;

@@ -28,6 +28,7 @@ void pokaz(char T[], char P[],int delta[][100], int x, int m){
 	for(i=1;i<=m;i++){
 		printf("%c ",P[i]);
 	}
+	printf("\n");
 	return;
 }
 
