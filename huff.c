@@ -9,36 +9,24 @@ typedef struct W {
 
 void wyswietl(wezel* root) {
 	if (root!=NULL) {
-		if(root->symbol>31 && root->symbol<127)
-			printf("\"\%c\" [label=\"\%c:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
+		if(root->symbol>=0)
+			printf("%d [label=\"%d:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
 		else
-			if(root->left!=NULL && root->right!=NULL)
-				printf("%d [style=filled]\n", root->key);
-			else
-				printf("\"\:%d\" [label=\"%d:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
+			printf("W%d [style=filled]\n", root->key);
+		if (root->left!=NULL && root->right!=NULL) {
 
-
-		if (root->left!=NULL || root->right!=NULL) {
-			if (root->left!=NULL && root->left->symbol>31 && root->left->symbol<127) {
-				printf("%d->\"\%c\" [label=0];",root->key, root->left->symbol);
+			if (root->left!=NULL && root->left->symbol>=0 && root->symbol<0) {
+				printf("W%d->%d [label=0];",root->key, root->left->symbol);
 			}
 			else
-				if (root->left!=NULL && root->left->left!=NULL && root->left->right!=NULL) {
-					printf("%d->%d [label=0];",root->key, root->left->key);
-				}
-				else
-					printf("%d->\"\:%d\" [label=0];",root->key, root->left->symbol);
+				printf("W%d->W%d [label=0];",root->key, root->left->key);
 
 
-			if (root->right!=NULL && root->right->symbol>31 && root->right->symbol<127) {
-				printf("%d->\"\%c\" [label=1];",root->key, root->right->symbol);
+			if (root->right!=NULL && root->right->symbol>=0) {
+				printf("W%d->%d [label=1];",root->key, root->right->symbol);
 			}
 			else
-				if (root->right!=NULL && root->right->left!=NULL && root->right->right!=NULL) {
-					printf("%d->%d [label=1];",root->key,root->right->key);
-				}
-				else
-					printf("%d->\"\:%d\" [label=1];",root->key, root->right->symbol);
+				printf("W%d->W%d [label=1];",root->key, root->right->key);
 
 			printf("\n");
 			if (root->left!=NULL ) {
@@ -51,14 +39,6 @@ void wyswietl(wezel* root) {
 	}
 }
 
-void show(wezel *z, int pom){
-	int i;
-	printf("sym: %d wart: %d -> ", z->symbol,z->key);
-	for(i=0;i<2*pom-1;i++){
-		printf("sym: %d wart: %d -> ", z->left->symbol,z->left->key);
-	}
-
-}
 wezel *findmin(wezel *T[], int pom){
 	int i,x=2147483647,y;
 	for(i=0;i<pom*2-1;i++){
