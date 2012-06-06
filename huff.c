@@ -9,25 +9,36 @@ typedef struct W {
 
 void wyswietl(wezel* root) {
 	if (root!=NULL) {
-		//printf("%d ",root->key);
-		if(root->symbol>0)   // jaki kolor
-			printf("%c [label=\"%c:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
+		if(root->symbol>31 && root->symbol<127)
+			printf("\"\%c\" [label=\"\%c:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
 		else
-			printf("%d [style=filled]\n", root->key);
-		if (root->left!=NULL || root->right!=NULL) {
-			if (root->left!=NULL && root->left->symbol>0) {
-				printf("%d->%c [label=0];",root->key, root->left->symbol);
-			}
-			if (root->left!=NULL && root->left->symbol<0) {
-				printf("%d->%d [label=0];",root->key, root->left->key);
-			}
+			if(root->left!=NULL && root->right!=NULL)
+				printf("%d [style=filled]\n", root->key);
+			else
+				printf("\"\:%d\" [label=\"%d:%d\", shape=rect, style=filled]\n",root->symbol,  root->symbol, root->key);
 
-			if (root->right!=NULL && root->right->symbol>0) {
-				printf("%d->%c [label=1];",root->key, root->right->symbol);
+
+		if (root->left!=NULL || root->right!=NULL) {
+			if (root->left!=NULL && root->left->symbol>31 && root->left->symbol<127) {
+				printf("%d->\"\%c\" [label=0];",root->key, root->left->symbol);
 			}
-			if (root->right!=NULL && root->right->symbol<0) {
-				printf("%d->%d [label=1];",root->key,root->right->key);
+			else
+				if (root->left!=NULL && root->left->left!=NULL && root->left->right!=NULL) {
+					printf("%d->%d [label=0];",root->key, root->left->key);
+				}
+				else
+					printf("%d->\"\:%d\" [label=0];",root->key, root->left->symbol);
+
+
+			if (root->right!=NULL && root->right->symbol>31 && root->right->symbol<127) {
+				printf("%d->\"\%c\" [label=1];",root->key, root->right->symbol);
 			}
+			else
+				if (root->right!=NULL && root->right->left!=NULL && root->right->right!=NULL) {
+					printf("%d->%d [label=1];",root->key,root->right->key);
+				}
+				else
+					printf("%d->\"\:%d\" [label=1];",root->key, root->right->symbol);
 
 			printf("\n");
 			if (root->left!=NULL ) {
@@ -48,31 +59,31 @@ void show(wezel *z, int pom){
 	}
 
 }
-wezel *findmin(wezel *TAB[], int pom){
+wezel *findmin(wezel *T[], int pom){
 	int i,x=2147483647,y;
 	for(i=0;i<pom*2-1;i++){
-		if(TAB[i]->key<x &&  TAB[i]->bracpoduwage == 1){
-			x=TAB[i]->key;
+		if(T[i]->key<x &&  T[i]->bracpoduwage == 1){
+			x=T[i]->key;
 			y=i;
 		}
 	}
-	TAB[y]->bracpoduwage=0;
-	return TAB[y];
+	T[y]->bracpoduwage=0;
+	return T[y];
 }
 
-void huffman(wezel *TAB[], int pom){
+void huffman(wezel *T[], int pom){
 	int i;
 	wezel *z, *x, *y;
 	for(i=0;i<pom-1;i++){
 		z=malloc(sizeof(wezel));
-		x=findmin(TAB,pom);
+		x=findmin(T,pom);
 		z->left=x;
-		y=findmin(TAB,pom);
+		y=findmin(T,pom);
 		z->right=y;
 		z->key=x->key+y->key;
 		z->bracpoduwage=1;
 		z->symbol=-2;
-		TAB[i+pom]=z;
+		T[i+pom]=z;
 	}
 
 	printf("digraph G {\n");
@@ -104,7 +115,7 @@ int main(int argc, char **argv){
 		if(A[i]!=0)
 			pom++;
 	}
-	wezel *TAB[pom*2-1];
+	wezel *T[pom*2-1];
 	wypelniacz=malloc(sizeof(wezel));
 	wypelniacz->symbol=0;
 	wypelniacz->key=0;
@@ -112,7 +123,7 @@ int main(int argc, char **argv){
 	wypelniacz->right=NULL;
 	wypelniacz->bracpoduwage=0;
 	for(i=0;i<pom*2;i++){
-		TAB[i]=wypelniacz;
+		T[i]=wypelniacz;
 	}
 	for(i=0;i<256;i++){
 		if(A[i]!=0){
@@ -122,11 +133,11 @@ int main(int argc, char **argv){
 			z->left=NULL;
 			z->right=NULL;
 			z->bracpoduwage=1;
-			TAB[j]=z;
+			T[j]=z;
 			j++;
 		}
 	}
-	huffman(TAB,pom);
+	huffman(T,pom);
 	fclose (fp);
 	return 0;
 }
